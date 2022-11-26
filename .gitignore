@@ -1,1 +1,5 @@
-vivado/
+*.o
+*.cf
+*.fst
+*.fst.hier
+verification/tb_alpha_core/tb_alpha_core
