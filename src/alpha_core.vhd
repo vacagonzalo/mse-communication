@@ -45,11 +45,6 @@ ARCHITECTURE rtl OF alpha_core IS
             clk_in1 : IN STD_LOGIC
         );
     END COMPONENT;
-
-    CONSTANT reset_active_level_c : STD_LOGIC := '1';
-    CONSTANT mem_size_c : POSITIVE := 256;
-    CONSTANT sync_read_c : BOOLEAN := true;
-
     COMPONENT sif_fifo IS
         GENERIC (
             RESET_ACTIVE_LEVEL : STD_LOGIC := '1';
@@ -143,37 +138,44 @@ ARCHITECTURE rtl OF alpha_core IS
         );
     END COMPONENT bb_demodulator;
 
-    SIGNAL system_enable_s : STD_LOGIC;
-    SIGNAL system_reset_s : STD_LOGIC;
+    CONSTANT mem_size_c : POSITIVE := 256;
+    CONSTANT reset_active_level_c : STD_LOGIC := '1';
+    CONSTANT sync_read_c : BOOLEAN := true;
+
+    SIGNAL clk_locked_s : STD_LOGIC;
     SIGNAL fast_clk_s : STD_LOGIC;
-    SIGNAL slow_clk_s : STD_LOGIC;
+
+    SIGNAL first_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL first_os_dv_s : STD_LOGIC;
+    SIGNAL first_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
+    SIGNAL first_os_rfd_s : STD_LOGIC;
 
     SIGNAL input_queue_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL input_queue_os_dv_s : STD_LOGIC;
     SIGNAL input_queue_os_rfd_s : STD_LOGIC;
 
-    SIGNAL tx_rdy_s : STD_LOGIC;
-    SIGNAL rx_ovf_s : STD_LOGIC;
-
-    SIGNAL first_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
-    SIGNAL first_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL first_os_dv_s : STD_LOGIC;
-    SIGNAL first_os_rfd_s : STD_LOGIC;
-
-    SIGNAL second_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
-    SIGNAL second_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL second_os_dv_s : STD_LOGIC;
-    SIGNAL second_os_rfd_s : STD_LOGIC;
-
-    SIGNAL third_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
-    SIGNAL third_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
-    SIGNAL third_os_dv_s : STD_LOGIC;
-    SIGNAL third_os_rfd_s : STD_LOGIC;
-
     SIGNAL output_queue_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL output_queue_os_dv_s : STD_LOGIC;
     SIGNAL output_queue_os_rfd_s : STD_LOGIC;
-    SIGNAL clk_locked_s : STD_LOGIC;
+
+    SIGNAL rx_ovf_s : STD_LOGIC;
+
+    SIGNAL second_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL second_os_dv_s : STD_LOGIC;
+    SIGNAL second_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
+    SIGNAL second_os_rfd_s : STD_LOGIC;
+
+    SIGNAL slow_clk_s : STD_LOGIC;
+
+    SIGNAL system_enable_s : STD_LOGIC;
+    SIGNAL system_reset_s : STD_LOGIC;
+
+    SIGNAL third_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL third_os_dv_s : STD_LOGIC;
+    SIGNAL third_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
+    SIGNAL third_os_rfd_s : STD_LOGIC;
+
+    SIGNAL tx_rdy_s : STD_LOGIC;
 
 BEGIN
 
