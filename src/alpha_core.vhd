@@ -142,10 +142,15 @@ ARCHITECTURE rtl OF alpha_core IS
     CONSTANT reset_active_level_c : STD_LOGIC := '1';
     CONSTANT sync_read_c : BOOLEAN := true;
 
-    SIGNAL clk_locked_s : STD_LOGIC;
+    -- Clock signals
     SIGNAL fast_clk_s : STD_LOGIC;
+    SIGNAL slow_clk_s : STD_LOGIC;
 
-    SIGNAL first_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    -- Control signals
+    SIGNAL system_enable_s : STD_LOGIC;
+    SIGNAL system_reset_s : STD_LOGIC;
+
+    -- Channel/Modulator connections
     SIGNAL first_os_dv_s : STD_LOGIC;
     SIGNAL first_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
     SIGNAL first_os_rfd_s : STD_LOGIC;
@@ -160,19 +165,14 @@ ARCHITECTURE rtl OF alpha_core IS
 
     SIGNAL rx_ovf_s : STD_LOGIC;
 
-    SIGNAL second_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
+    -- Channel/Demodulator connections
     SIGNAL second_os_dv_s : STD_LOGIC;
     SIGNAL second_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
     SIGNAL second_os_rfd_s : STD_LOGIC;
 
-    SIGNAL slow_clk_s : STD_LOGIC;
-
-    SIGNAL system_enable_s : STD_LOGIC;
-    SIGNAL system_reset_s : STD_LOGIC;
-
+    -- Demodulator/Output_queue connections
     SIGNAL third_os_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL third_os_dv_s : STD_LOGIC;
-    SIGNAL third_os_full_data_s : STD_LOGIC_VECTOR(9 DOWNTO 0);
     SIGNAL third_os_rfd_s : STD_LOGIC;
 
     SIGNAL tx_rdy_s : STD_LOGIC;
@@ -182,15 +182,14 @@ BEGIN
     tx_rdy_o <= tx_rdy_s;
     rx_ovf_o <= rx_ovf_s;
 
-    first_os_full_data_s <= "00" & first_os_data_s;
-    second_os_full_data_s <= "00" & second_os_data_s;
-    third_os_full_data_s <= "00" & third_os_data_s;
-
     fast_clk_s <= clk_i; -- 125Mhz (AXI clock)
     system_enable_s <= en_i;
     system_reset_s <= srst_i;
 
     output_queue_os_rfd_s <= os_rfd_i;
+
+    os_data_o <= output_queue_os_data_s;
+    os_dv_o <= output_queue_os_dv_s;
 
     clk_wizard : clk_wiz_0
     PORT MAP(
@@ -198,7 +197,7 @@ BEGIN
         clk_out1 => slow_clk_s,
         -- Status and control signals
         reset => system_reset_s,
-        locked => clk_locked_s,
+        locked => OPEN,
         -- Clock in ports
         clk_in1 => fast_clk_s
     );
@@ -315,8 +314,5 @@ BEGIN
         full_o => OPEN,
         data_count_o => OPEN
     );
-
-    os_data_o <= output_queue_os_data_s;
-    os_dv_o <= output_queue_os_dv_s;
 
 END ARCHITECTURE rtl;
