@@ -222,7 +222,7 @@ BEGIN
         os_rfd_i => input_queue_os_rfd_s,
         -- Status
         empty_o => OPEN,
-        full_o => OPEN,
+        full_o => rx_ovf_s,
         data_count_o => OPEN
     );
 
