@@ -1,0 +1,191 @@
+$date
+	Tue Nov 29 23:05:31 2022
+$end
+$version
+	GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+$end
+$timescale
+	1fs
+$end
+$scope module dut $end
+$var wire 1 " clk_i $end
+$var wire 1 # en_i $end
+$var wire 8 * is_data_i[7:0] $end
+$var wire 1 + is_dv_i $end
+$var wire 1 , is_rfd_o $end
+$var wire 8 - os_data_o[7:0] $end
+$var wire 1 . os_dv_o $end
+$var wire 1 / os_rfd_i $end
+$var wire 8 $ nm1_bytes_i[7:0] $end
+$var wire 8 % nm1_pre_i[7:0] $end
+$var wire 8 & nm1_sfd_i[7:0] $end
+$var wire 16 ( pll_kp_i[15:0] $end
+$var wire 16 ' pll_ki_i[15:0] $end
+$var wire 16 ) sigma_i[15:0] $end
+$scope module input_queue $end
+$var wire 8 0 is_data_i[7:0] $end
+$var wire 1 1 is_dv_i $end
+$var wire 1 2 is_rfd_o $end
+$var wire 8 3 os_data_o[7:0] $end
+$var wire 1 4 os_dv_o $end
+$var wire 1 5 os_rfd_i $end
+$upscope $end
+$scope module modulator $end
+$var wire 8 6 is_data_i[7:0] $end
+$var wire 1 7 is_dv_i $end
+$var wire 1 8 is_rfd_o $end
+$var wire 2 9 map_os_data_s[1:0] $end
+$var wire 1 : map_os_dv_s $end
+$var wire 1 ; map_os_rfd_s $end
+$upscope $end
+$scope module channel $end
+$var wire 10 < is_data_i[9:0] $end
+$var wire 1 = is_dv_i $end
+$var wire 1 > is_rfd_o $end
+$var wire 10 ? os_data_o[9:0] $end
+$var wire 1 @ os_dv_o $end
+$var wire 1 A os_rfd_i $end
+$upscope $end
+$scope module demodulator $end
+$var wire 10 B is_data_i[9:0] $end
+$var wire 1 C is_dv_i $end
+$var wire 1 D is_rfd_o $end
+$var wire 8 E os_data_o[7:0] $end
+$var wire 1 F os_dv_o $end
+$var wire 1 G os_rfd_i $end
+$upscope $end
+$scope module output_queue $end
+$var wire 8 H is_data_i[7:0] $end
+$var wire 1 I is_dv_i $end
+$var wire 1 J is_rfd_o $end
+$var wire 1 K os_dv_o $end
+$var wire 1 M os_rfd_i $end
+$var wire 1 L os_dv_s $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+u=
+bu 6
+bu E
+1#
+u4
+1@
+uL
+1"
+bu B
+1+
+1C
+11
+1A
+u/
+u2
+uF
+1D
+uK
+bu H
+u7
+b11 $
+bu 3
+uG
+uJ
+u,
+b1 &
+b1111 %
+uI
+05
+bu )
+u:
+bu '
+uM
+bu ?
+b11111111 *
+bu -
+08
+1>
+b11111111 0
+bu (
+bu 9
+b0 <
+u.
+u;
+$end
+#500000000
+0"
+#1000000000
+1"
+1;
+0I
+0L
+b0 E
+0=
+04
+12
+0/
+b0 B
+0K
+0F
+b0 H
+07
+1J
+1G
+1,
+0.
+0:
+b0 ?
+0M
+b0 9
+#1500000000
+0"
+#2000000000
+1"
+#2500000000
+0"
+b11111110 *
+b11111110 0
+#3000000000
+1"
+#3500000000
+0"
+b11111101 0
+b11111101 *
+#4000000000
+1:
+1"
+#4500000000
+0"
+b11111100 0
+b11111100 *
+#5000000000
+b11111101 6
+14
+b11111101 3
+bx B
+17
+1"
+bx ?
+#5500000000
+b11111011 *
+0"
+b11111011 0
+#6000000000
+0;
+1"
+#6500000000
+0"
+b11111010 0
+b11111010 *
+#7000000000
+1"
+1=
+#7500000000
+0"
+b11111001 *
+b11111001 0
+#8000000000
+1"
+#8500000000
+0"
+b11111000 0
+b11111000 *
