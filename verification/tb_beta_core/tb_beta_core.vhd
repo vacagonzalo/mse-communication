@@ -43,9 +43,9 @@ architecture tb of tb_beta_core is
   signal tb_dut_os_rfd_i   : std_logic;
   signal tb_dut_tx_rdy_o   : std_logic;
   signal tb_dut_det_th_i    : std_logic_vector (15 downto 0);
-  signal tb_dut_pll_kp_i    : std_logic_vector (15 downto 0);
-  signal tb_dut_pll_ki_i    : std_logic_vector (15 downto 0);
-  signal tb_dut_sigma_i     : std_logic_vector (15 downto 0);
+  signal tb_dut_pll_kp_i    : std_logic_vector (15 downto 0):= x"A000";
+  signal tb_dut_pll_ki_i    : std_logic_vector (15 downto 0):= x"9000";
+  signal tb_dut_sigma_i     : std_logic_vector (15 downto 0):= x"0000";
 
   signal tb_clock_counter_s : integer := 0;
   signal os_dv_delay_s      : std_logic_vector(8 downto 0);
@@ -56,8 +56,8 @@ architecture tb of tb_beta_core is
   signal tb_dut_tx_ovf_o : std_logic;
   signal tb_dut_send_i : std_logic;
   signal TbSimEnded : std_logic := '0';
-  constant SAMPLE_PERIOD   : time    := 1000 ns;--62500 ps;
-  constant N_TX            : integer := 2;
+  constant SAMPLE_PERIOD   : time    := 62500 ps;
+  constant N_TX            : integer := 5;
   constant N_ZEROS         : integer := 123;
 
 begin
@@ -116,7 +116,7 @@ begin
   begin
    tb_dut_en_i       <= '1';
    tb_dut_srst_i     <= '1';
-   wait for 3*SAMPLE_PERIOD;
+   wait for 1*SAMPLE_PERIOD;
    tb_dut_en_i       <= '1';
    tb_dut_srst_i     <= '0';
 
