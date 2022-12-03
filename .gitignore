@@ -2,3 +2,4 @@
 *.cf
 *.fst.hier
 verification/tb_beta_core/tb_beta_core
+vivado/

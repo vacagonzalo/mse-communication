@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER DSC_core
+	OPTION supported_peripherals = (DSC_core);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = DSC_core;
+END DRIVER
