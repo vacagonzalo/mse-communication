@@ -17,7 +17,7 @@ ENTITY adaptador_entrada IS
         -- Input FIFO
         rx_os_data_o : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
         rx_os_dv_o : OUT STD_LOGIC;
-        rx_os_rfd_i : IN STD_LOGIC;
+        rx_os_rfd_i : IN STD_LOGIC
     );
 END ENTITY adaptador_entrada;
 
@@ -42,11 +42,7 @@ BEGIN
     state_machine : PROCESS (clk_i, srst_i)
     BEGIN
         IF srst_i = '1' THEN
-            rx_os_dv_s <= '0';
-            rx_ovf_s <= '0';
-
             output_candidate_s <= (OTHERS => '0');
-            rx_os_data_s <= (OTHERS => '0');
 
             latch_rising_edge_s <= '0';
             latch0_s <= '0';
@@ -55,6 +51,10 @@ BEGIN
             rfd_rising_edge_s <= '0';
             rfd0_s <= '0';
             rfd1_s <= '0';
+
+            rx_os_data_s <= (OTHERS => '0');
+            rx_os_dv_s <= '0';
+            rx_ovf_s <= '0';
 
         ELSIF rising_edge(clk_i) THEN
             IF en_i = '1' THEN
@@ -88,6 +88,5 @@ BEGIN
     -- Conexiones de salida de la entidad
     rx_os_data_o <= rx_os_data_s;
     rx_os_dv_o <= rx_os_dv_s;
-    rx_ovf_o <= rx_ovf_s;
 
 END ARCHITECTURE rtl;
