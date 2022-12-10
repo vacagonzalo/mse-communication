@@ -22,7 +22,7 @@ ENTITY send_logic IS
         modem_is_rfd_i : IN STD_LOGIC;
 
         -- OUTPUT
-        modem_is_rfd_i : OUT STD_LOGIC
+        modem_send_o : OUT STD_LOGIC
     );
 END ENTITY send_logic;
 
@@ -66,5 +66,7 @@ BEGIN
             END IF;
         END IF;
     END PROCESS state_machine;
+
+    modem_send_o <= modem_send_s;
 
 END ARCHITECTURE rtl;
