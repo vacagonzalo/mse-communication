@@ -17,6 +17,7 @@ SRC_DIRS += ./src/lib
 SRC_DIRS += ./src/lib/uart
 SRC_DIRS += ./src/lib/fifo
 SRC_DIRS += ./src/top
+SRC_DIRS += ./src/adaptador
 SRC_DIRS += ./src/modulator
 SRC_DIRS += ./src/modulator/pulse_shaping
 SRC_DIRS += ./src/channel/

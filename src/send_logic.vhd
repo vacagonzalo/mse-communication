@@ -36,30 +36,30 @@ BEGIN
     state_machine : PROCESS (clk_i)
     BEGIN
         IF rising_edge(clk_i) THEN
-            IF srst_s = '1' THEN
+            IF srst_i = '1' THEN
                 pipe_data_counter_s <= (OTHERS => '0');
                 modem_send_s <= '0';
                 -- modem_tx_rdy_d10_s <= (others => '0');
             ELSE
-                IF uart_os_dv_s = '1' AND
-                    uart_os_rfd_s = '1' AND
-                    modem_is_dv_s = '1' AND
-                    modem_is_rfd_s = '1'
+                IF uart_os_dv_i = '1' AND
+                    uart_os_rfd_i = '1' AND
+                    modem_is_dv_i = '1' AND
+                    modem_is_rfd_i = '1'
                     THEN
                     pipe_data_counter_s <= pipe_data_counter_s;
-                ELSIF modem_is_dv_s = '1' AND
-                    modem_is_rfd_s = '1'
+                ELSIF modem_is_dv_i = '1' AND
+                    modem_is_rfd_i = '1'
                     THEN
                     pipe_data_counter_s <= STD_LOGIC_VECTOR(unsigned(pipe_data_counter_s) - 1);
-                ELSIF uart_os_dv_s = '1' AND
-                    uart_os_rfd_s = '1'
+                ELSIF uart_os_dv_i = '1' AND
+                    uart_os_rfd_i = '1'
                     THEN
                     pipe_data_counter_s <= STD_LOGIC_VECTOR(unsigned(pipe_data_counter_s) + 1);
                 END IF;
                 IF modem_send_s = '1' THEN
                     modem_send_s <= '0';
                 ELSE
-                    IF unsigned(pipe_data_counter_s) > unsigned(nm1_bytes_i) AND modem_tx_rdy_s = '1' THEN
+                    IF unsigned(pipe_data_counter_s) > unsigned(nm1_bytes_i) THEN
                         modem_send_s <= '1';
                     END IF;
                 END IF;
