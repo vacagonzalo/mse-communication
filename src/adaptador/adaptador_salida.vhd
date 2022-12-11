@@ -26,13 +26,11 @@ ARCHITECTURE rtl OF adaptador_salida IS
 
     SIGNAL output_axi_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
 
-    SIGNAL latch_s : STD_LOGIC;
-    SIGNAL latch0_s : STD_LOGIC;
-    SIGNAL latch1_s : STD_LOGIC;
 
-    SIGNAL ack_s : STD_LOGIC;
-    SIGNAL ack0_s : STD_LOGIC;
-    SIGNAL ack1_s : STD_LOGIC;
+    TYPE edge_t IS (WAITING_RISE, DETECTED, WAITING_DOWN);
+
+    SIGNAL latch_edge_s : edge_t := WAITING_RISE;
+    SIGNAL ack_edge_s : edge_t := WAITING_RISE;
 
     SIGNAL tx_is_data_s : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL tx_is_dv_s : STD_LOGIC;
@@ -41,8 +39,6 @@ ARCHITECTURE rtl OF adaptador_salida IS
 BEGIN
 
     data_o <= output_axi_s;
-    latch_s <= latch_i;
-    ack_s <= ack_i;
 
     tx_is_data_s <= tx_is_data_i;
     tx_is_dv_s <= tx_is_dv_i;
@@ -53,13 +49,8 @@ BEGIN
         IF srst_i = '1' THEN
             output_axi_s <= (OTHERS => '0');
 
-            latch_s <= '0';
-            latch0_s <= '0';
-            latch1_s <= '0';
-
-            ack_s <= '0';
-            ack0_s <= '0';
-            ack1_s <= '0';
+            latch_edge_s <= WAITING_RISE;
+            ack_edge_s <= WAITING_RISE;
 
             tx_is_data_s <= (OTHERS => '0');
             tx_is_dv_s <= '0';
@@ -67,34 +58,42 @@ BEGIN
 
         ELSIF rising_edge(clk_i) THEN
             IF en_i = '1' THEN
-                latch0_s <= latch_i;
-                latch1_s <= latch0_s;
 
-                ack0_s <= ack_i;
-                ack1_s <= ack0_s;
-
-                IF latch_s = '1' THEN
-                    IF tx_is_dv_s = '1' THEN
-                        output_axi_s <= tx_is_data_s;
-                    ELSE
-                        output_axi_s <= output_axi_s;
+                CASE latch_edge_s IS
+                WHEN WAITING_RISE =>
+                    IF latch_i = '1' THEN
+                        latch_edge_s <= DETECTED;
                     END IF;
-                END IF;
 
-                IF ack_s = '1' THEN -- rising edge del ack del axi
-                    tx_is_rfd_s <= '1';
-                ELSE
-                    tx_is_rfd_s <= '0';
-                END IF;
+                WHEN DETECTED =>
+                    output_axi_s <= tx_is_data_i;
+                    latch_edge_s <= WAITING_DOWN;
+
+                WHEN WAITING_DOWN =>
+                    IF latch_i = '0' THEN
+                        latch_edge_s <= WAITING_RISE;
+                    END IF;
+                END CASE;
+
+                CASE ack_edge_s IS
+                    WHEN WAITING_RISE =>
+                        IF ack_i = '1' THEN
+                        ack_edge_s <= DETECTED;
+                        END IF;
+
+                    WHEN DETECTED =>
+                        tx_is_rfd_s <= '1';
+                        ack_edge_s <= WAITING_DOWN;
+
+                    WHEN WAITING_DOWN =>
+                        tx_is_rfd_s <= '0';
+                        IF ack_i = '0' THEN
+                            ack_edge_s <= WAITING_RISE;
+                        END IF;
+                END CASE;
 
             END IF;
         END IF;
     END PROCESS state_machine;
-
-    -- Detector de flanco ascendente del latch_i
-    latch_s <= NOT latch1_s AND latch0_s;
-
-    -- Detector de flanco ascendente del latch_i
-    ack_s <= NOT ack1_s AND ack0_s;
 
 END ARCHITECTURE rtl;

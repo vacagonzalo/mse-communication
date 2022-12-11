@@ -145,8 +145,16 @@ BEGIN
       data_var := data_var - 1;
       tb_dut_is_data_aux_i <= STD_LOGIC_VECTOR(to_unsigned(data_var, 8));
       tb_dut_write_latch_i <= '1';
+      ---
+      -- Lectura
+      tb_dut_read_latch_i <= '1';
+      tb_dut_read_ack_i <= '1';
+
+      ---
     ELSE
       tb_dut_write_latch_i <= '0';
+      tb_dut_read_latch_i <= '0';
+      tb_dut_read_ack_i <= '0';
     END IF;
     cambio_s <= NOT cambio_s;
   END PROCESS;
