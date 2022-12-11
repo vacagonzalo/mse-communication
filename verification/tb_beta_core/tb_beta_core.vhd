@@ -50,6 +50,8 @@ ARCHITECTURE tb OF tb_beta_core IS
   SIGNAL tb_dut_pll_ki_i : STD_LOGIC_VECTOR (15 DOWNTO 0);
   SIGNAL tb_dut_sigma_i : STD_LOGIC_VECTOR (15 DOWNTO 0);
 
+  SIGNAL tb_dut_clk_slow_i : STD_LOGIC := '1';
+  SIGNAL tb_dut_is_data_aux_i : STD_LOGIC_VECTOR(7 DOWNTO 0);
 ---
   SIGNAL tb_clock_counter_s : INTEGER := 0;
   SIGNAL os_dv_delay_s : STD_LOGIC_VECTOR(8 DOWNTO 0);
@@ -64,6 +66,7 @@ ARCHITECTURE tb OF tb_beta_core IS
   CONSTANT N_TX : INTEGER := 68;
   CONSTANT N_ZEROS : INTEGER := 123;
 
+  SIGNAL cambio_s : STD_LOGIC := '0';
 BEGIN
 
   ------------------------------------------------------------
@@ -110,12 +113,16 @@ BEGIN
   ------------------------------------------------------------
   -- clock
   tb_dut_clk_i <= NOT tb_dut_clk_i AFTER SAMPLE_PERIOD/2;
+
+  tb_dut_clk_slow_i <= NOT tb_dut_clk_slow_i AFTER SAMPLE_PERIOD*4;
   --
 
   tb_dut_pll_kp_i <= x"A000";
   tb_dut_pll_ki_i <= x"9000";
   tb_dut_sigma_i <= x"0000";
   tb_dut_det_th_i <= x"0040";
+
+  tb_dut_is_data_i <= tb_dut_is_data_aux_i;
 
   PROCESS
   BEGIN
@@ -127,7 +134,21 @@ BEGIN
 
     WAIT;
   END PROCESS;
+-----
+DATA_GENERATOR: PROCESS (tb_dut_clk_slow_i)
+  VARIABLE data_var : INTEGER := 255;
+BEGIN
+  IF cambio_s = '1' THEN
+    data_var := data_var -1;
+    tb_dut_is_data_aux_i <= std_logic_vector(to_unsigned(data_var,8));
+    tb_dut_write_latch_i <= '1';   
+  ELSE
+    tb_dut_write_latch_i <= '0';
+  END IF;
+  cambio_s <= not cambio_s;
+END PROCESS;
 
+-----
   PROCESS (tb_dut_clk_i)
     VARIABLE i_v : INTEGER := 0;
     VARIABLE byte_v : INTEGER := 255;
@@ -143,6 +164,7 @@ BEGIN
       END IF;
     END IF;
     i_v := i_v + 1;
+
     IF i_v >= N_TX * 4 THEN
       -- END OF SIMULATION
       write(l, STRING'("                                 "));

@@ -237,7 +237,7 @@ ARCHITECTURE rtl OF beta_core IS
 BEGIN
 
     -- Common signals
-    clk_s <= clk_s;
+    clk_s <= clk_i;
     en_s <= en_i;
     srst_s <= srst_i;
 
@@ -408,7 +408,7 @@ BEGIN
     )
     PORT MAP(
         -- clk, srst
-        clk_i => clk_i,
+        clk_i => clk_s,
         srst_i => srst_s,
 
         -- Input Stream Interface

@@ -1,0 +1,56 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Sat Dec 10 23:02:12 2022
+[*]
+[dumpfile] "/Users/jonathancagua/ESP-EMBEBIDOS/mse-communication/verification/tb_beta_core/waves.fst"
+[dumpfile_mtime] "Sat Dec 10 22:52:12 2022"
+[dumpfile_size] 6069
+[savefile] "/Users/jonathancagua/ESP-EMBEBIDOS/mse-communication/verification/tb_beta_core/GTKW_02.gtkw"
+[timestart] 18300000000
+[size] 1378 847
+[pos] -1 -1
+*-34.835026 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dut.
+[sst_width] 419
+[signals_width] 167
+[sst_expanded] 1
+[sst_vpaned_height] 253
+@200
+-
+-CONFIG
+@22
+dut.nm1_bytes_i[7:0]
+dut.nm1_pre_i[7:0]
+dut.nm1_sfd_i[7:0]
+dut.det_th_i[15:0]
+dut.pll_ki_i[15:0]
+dut.pll_kp_i[15:0]
+dut.sigma_i[15:0]
+@200
+-
+-SENALES
+@28
+tb_dut_clk_i
+tb_dut_en_i
+tb_dut_srst_i
+@200
+-
+-
+-INPUT STREAM
+@22
+dut.is_data_i[7:0]
+@28
+dut.write_latch_i
+@200
+-
+-
+-OUTPUT STREAM
+@22
+dut.os_data_o[7:0]
+@28
+dut.read_latch_i
+dut.read_ack_i
+@200
+-
+[pattern_trace] 1
+[pattern_trace] 0
