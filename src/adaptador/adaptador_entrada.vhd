@@ -55,43 +55,51 @@ BEGIN
                     WHEN WAITING_RISE =>
                         IF latch_i = '1' THEN
                             latch_edge_s <= DETECTED;
+                            rx_os_data_o <= data_i;
+                            rx_os_dv_o <= '1';
+
                         END IF;
 
                     WHEN DETECTED =>
-                        output_candidate_s <= data_i;
                         latch_edge_s <= WAITING_DOWN;
+                        IF rx_os_rfd_i = '1' THEN
+                            rx_os_dv_o <= '0';
+                        END IF;
 
                     WHEN WAITING_DOWN =>
                         IF latch_i = '0' THEN
                             latch_edge_s <= WAITING_RISE;
                         END IF;
-                END CASE;
-
-                CASE rfd_edge_s IS
-                    WHEN WAITING_RISE =>
                         IF rx_os_rfd_i = '1' THEN
-                            rfd_edge_s <= DETECTED;
-                        END IF;
-
-                    WHEN DETECTED =>
-                        rx_os_data_s <= output_candidate_s;
-                        rfd_edge_s <= WAITING_DOWN;
-
-                    WHEN WAITING_DOWN =>
-                        IF rx_os_rfd_i = '0' THEN
-                            rfd_edge_s <= WAITING_RISE;
+                            rx_os_dv_o <= '0';
                         END IF;
                 END CASE;
 
-                rx_os_dv_s <= '1';
+                -- CASE rfd_edge_s IS
+                --     WHEN WAITING_RISE =>
+                --         IF rx_os_rfd_i = '1' THEN
+                --             rfd_edge_s <= DETECTED;
+                --         END IF;
+
+                --     WHEN DETECTED =>
+                --         rx_os_data_s <= output_candidate_s;
+                --         rfd_edge_s <= WAITING_DOWN;
+
+                --     WHEN WAITING_DOWN =>
+                --         IF rx_os_rfd_i = '0' THEN
+                --             rfd_edge_s <= WAITING_RISE;
+                --         END IF;
+                -- END CASE;
+
+                -- rx_os_dv_s <= '1';
             ELSE
-                rx_os_dv_s <= '0';
+                rx_os_dv_o <= '0';
             END IF;
         END IF;
     END PROCESS state_machine;
 
-    -- Conexiones de salida de la entidad
-    rx_os_data_o <= rx_os_data_s;
-    rx_os_dv_o <= rx_os_dv_s;
+    -- -- Conexiones de salida de la entidad
+    -- rx_os_data_o <= rx_os_data_s;
+    -- rx_os_dv_o <= rx_os_dv_s;
 
 END ARCHITECTURE rtl;
