@@ -20,6 +20,7 @@ ENTITY send_logic IS
         -- MODEM
         modem_is_dv_i : IN STD_LOGIC;
         modem_is_rfd_i : IN STD_LOGIC;
+        modem_tx_rdy_i : IN STD_LOGIC;
 
         -- OUTPUT
         modem_send_o : OUT STD_LOGIC
@@ -59,7 +60,7 @@ BEGIN
                 IF modem_send_s = '1' THEN
                     modem_send_s <= '0';
                 ELSE
-                    IF unsigned(pipe_data_counter_s) > unsigned(nm1_bytes_i) THEN
+                    IF unsigned(pipe_data_counter_s) > unsigned(nm1_bytes_i) and modem_tx_rdy_i = '1' then
                         modem_send_s <= '1';
                     END IF;
                 END IF;

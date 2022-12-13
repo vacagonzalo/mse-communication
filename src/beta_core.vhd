@@ -104,6 +104,7 @@ ARCHITECTURE rtl OF beta_core IS
             -- MODEM
             modem_is_dv_i : IN STD_LOGIC;
             modem_is_rfd_i : IN STD_LOGIC;
+            modem_tx_rdy_i : IN STD_LOGIC;
             -- OUTPUT
             modem_send_o : OUT STD_LOGIC
         );
@@ -213,6 +214,7 @@ ARCHITECTURE rtl OF beta_core IS
     SIGNAL fifo_in_modem_data : STD_LOGIC_VECTOR(7 DOWNTO 0);
     SIGNAL fifo_in_modem_dv : STD_LOGIC;
     SIGNAL fifo_in_modem_rfd : STD_LOGIC;
+    SIGNAL fifo_in_modem_tx_rdy : STD_LOGIC;
 
     SIGNAL logic_modem : STD_LOGIC;
 
@@ -320,7 +322,7 @@ BEGIN
         -- MODEM
         modem_is_dv_i => fifo_in_modem_dv,
         modem_is_rfd_i => fifo_in_modem_rfd,
-
+        modem_tx_rdy_i => fifo_in_modem_tx_rdy,
         -- OUTPUT
         modem_send_o => logic_modem
     );
@@ -347,7 +349,7 @@ BEGIN
         nm1_pre_i => nm1_pre_s,
         nm1_sfd_i => nm1_sfd_s,
         send_i => logic_modem,
-        tx_rdy_o => OPEN
+        tx_rdy_o => fifo_in_modem_tx_rdy
     );
 
     channel : bb_channel

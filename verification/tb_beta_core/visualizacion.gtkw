@@ -1,17 +1,17 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Sun Dec 11 14:27:16 2022
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Dec 13 02:13:38 2022
 [*]
-[dumpfile] "/home/gonzalo/workspace/comm/mse-communication/verification/tb_beta_core/waves.fst"
-[dumpfile_mtime] "Sun Dec 11 14:03:51 2022"
-[dumpfile_size] 584034
-[savefile] "/home/gonzalo/workspace/comm/mse-communication/verification/tb_beta_core/visualizacion.gtkw"
+[dumpfile] "/home/easymtering/DESARROLLO/mse-communication/verification/tb_beta_core/waves.fst"
+[dumpfile_mtime] "Tue Dec 13 01:51:06 2022"
+[dumpfile_size] 584230
+[savefile] "/home/easymtering/DESARROLLO/mse-communication/verification/tb_beta_core/visualizacion.gtkw"
 [timestart] 0
-[size] 1546 836
+[size] 1835 1016
 [pos] -1 -1
-*-40.835026 1951000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-39.330276 582000000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] dut.
-[sst_width] 366
+[sst_width] 233
 [signals_width] 290
 [sst_expanded] 1
 [sst_vpaned_height] 397
@@ -50,6 +50,21 @@ dut.u_ain.rx_os_rfd_i
 [color] 2
 dut.u_ain.rfd_edge_s
 dut.u_ain.rx_os_dv_o
+dut.u_ain.rx_os_rfd_i
+@201
+-
+@200
+-Send logic
+@28
+dut.u_send_logic.uart_os_dv_i
+dut.u_send_logic.uart_os_rfd_i
+dut.u_send_logic.modem_is_dv_i
+dut.u_send_logic.modem_is_rfd_i
+dut.u_send_logic.modem_send_o
+dut.modulator.tx_rdy_o
+@22
+dut.u_send_logic.nm1_bytes_i[7:0]
+dut.u_send_logic.pipe_data_counter_s[7:0]
 @200
 -
 -FIFO entrada
@@ -70,14 +85,6 @@ dut.input_queue.os_rfd_i
 dut.input_queue.data_count_o[7:0]
 @200
 -
--Send logic
-@28
-dut.u_send_logic.uart_os_dv_i
-dut.u_send_logic.uart_os_rfd_i
-dut.u_send_logic.modem_is_dv_i
-dut.u_send_logic.modem_is_rfd_i
-dut.u_send_logic.modem_send_o
-@200
 -
 -Modulador
 @28
@@ -133,9 +140,8 @@ dut.u_aout.tx_is_dv_i
 dut.u_aout.tx_is_rfd_o
 @22
 dut.u_aout.data_o[7:0]
-@29
-dut.u_aout.latch_i
 @28
+dut.u_aout.latch_i
 dut.u_aout.ack_i
 [pattern_trace] 1
 [pattern_trace] 0
