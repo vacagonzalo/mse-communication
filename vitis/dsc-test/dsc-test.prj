@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="dsc-test" location="/home/gonzalo/workspace/Comunicaciones/mse-communication/vitis/dsc-test" platform="/home/gonzalo/workspace/Comunicaciones/mse-communication/vitis/dsc-artyz7/export/dsc-artyz7/dsc-artyz7.xpfm" platformUID="xilinx:arty-z7-20::0.0(custom)" systemProject="dsc-test_system" sysConfig="dsc-artyz7" runtime="C/C++" cpu="freertos10_xilinx_domain" cpuInstance="ps7_cortexa9_0" os="freertos10_xilinx" mssSignature="28ddb0a5b697886eaef6aa4e21ef67cd">
+  <configuration name="Debug" id="xilinx.gnu.armv7.exe.debug.1757471583">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.armv7.exe.release.300603333" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="freertos_hello_world" hasBspSettings="true"/>
+</sdkproject:SdkProject>

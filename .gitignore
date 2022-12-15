@@ -3,3 +3,7 @@
 *.fst.hier
 verification/tb_beta_core/tb_beta_core
 vivado/
+vitis/.metadata/
+vitis/dsc-artyz7/logs
+vitis/IDE.log
+vitis/RemoteSystemsTempFiles

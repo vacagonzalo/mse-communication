@@ -10,7 +10,7 @@ ENTITY DSC_core_v1_0 IS
         -- Do not modify the parameters beyond this line
         -- Parameters of Axi Slave Bus Interface S00_AXI
         C_S00_AXI_DATA_WIDTH : INTEGER := 32;
-        C_S00_AXI_ADDR_WIDTH : INTEGER := 6
+        C_S00_AXI_ADDR_WIDTH : INTEGER := 5
     );
     PORT (
         -- Users to add ports here
@@ -48,7 +48,7 @@ ARCHITECTURE arch_imp OF DSC_core_v1_0 IS
     COMPONENT DSC_core_v1_0_S00_AXI IS
         GENERIC (
             C_S_AXI_DATA_WIDTH : INTEGER := 32;
-            C_S_AXI_ADDR_WIDTH : INTEGER := 6
+            C_S_AXI_ADDR_WIDTH : INTEGER := 5
         );
         PORT (
             S_AXI_ACLK : IN STD_LOGIC;
