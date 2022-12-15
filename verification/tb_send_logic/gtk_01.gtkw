@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Sun Dec 11 18:43:50 2022
+[*]
+[dumpfile] "/Users/jonathancagua/ESP-EMBEBIDOS/mse-communication/verification/tb_send_logic/waves.fst"
+[dumpfile_mtime] "Sun Dec 11 18:42:11 2022"
+[dumpfile_size] 629
+[savefile] "/Users/jonathancagua/ESP-EMBEBIDOS/mse-communication/verification/tb_send_logic/gtk_01.gtkw"
+[timestart] 16230000000
+[size] 1546 836
+[pos] -1 -1
+*-32.040741 1030000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 193
+[signals_width] 266
+[sst_expanded] 1
+[sst_vpaned_height] 240
+@28
+clk_i
+en_i
+srst_i
+@22
+dut.nm1_bytes_i[7:0]
+@28
+uart_os_dv_i
+uart_os_rfd_i
+modem_is_dv_i
+modem_is_rfd_i
+@22
+dut.pipe_data_counter_s[7:0]
+@23
+dut.nm1_bytes_i[7:0]
+@28
+dut.modem_send_o
+[pattern_trace] 1
+[pattern_trace] 0

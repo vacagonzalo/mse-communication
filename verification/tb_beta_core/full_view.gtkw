@@ -1,0 +1,125 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Nov 30 02:07:08 2022
+[*]
+[dumpfile] "/home/gonzalo/workspace/comm/mse-communication/verification/tb_beta_core/waves.fst"
+[dumpfile_mtime] "Wed Nov 30 01:49:26 2022"
+[dumpfile_size] 6180
+[savefile] "/home/gonzalo/workspace/comm/mse-communication/verification/tb_beta_core/full_view.gtkw"
+[timestart] 0
+[size] 1546 836
+[pos] -341 -106
+*-30.418001 6085000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] dut.
+[sst_width] 360
+[signals_width] 218
+[sst_expanded] 1
+[sst_vpaned_height] 226
+@200
+-Control
+@28
+dut.clk_i
+dut.en_i
+@200
+-
+-Configuración
+@22
+dut.nm1_bytes_i[7:0]
+dut.nm1_pre_i[7:0]
+dut.nm1_sfd_i[7:0]
+dut.pll_ki_i[15:0]
+dut.pll_kp_i[15:0]
+dut.sigma_i[15:0]
+dut.is_data_i[7:0]
+@28
+dut.is_dv_i
+dut.is_rfd_o
+@200
+-Entrada sistema
+@22
+dut.is_data_i[7:0]
+@28
+dut.is_dv_i
+dut.is_rfd_o
+@200
+-Salida sistema
+@22
+dut.os_data_o[7:0]
+@28
+dut.os_dv_o
+dut.os_rfd_i
+@200
+-
+-FIFO entrada
+@22
+dut.input_queue.is_data_i[7:0]
+@28
+dut.input_queue.is_dv_i
+dut.input_queue.is_rfd_o
+@200
+-
+@22
+dut.input_queue.os_data_o[7:0]
+@28
+dut.input_queue.os_dv_o
+dut.input_queue.os_rfd_i
+@200
+-
+-Modulador
+@22
+dut.modulator.is_data_i[7:0]
+@28
+dut.modulator.is_dv_i
+dut.modulator.is_rfd_o
+@200
+-
+@28
+dut.modulator.map_os_data_s[1:0]
+dut.modulator.map_os_dv_s
+dut.modulator.map_os_rfd_s
+@200
+-
+-Canal
+@22
+dut.channel.is_data_i[9:0]
+@28
+dut.channel.is_dv_i
+dut.channel.is_rfd_o
+@200
+-
+@22
+dut.channel.os_data_o[9:0]
+@28
+dut.channel.os_dv_o
+dut.channel.os_rfd_i
+@200
+-
+-Demodulador
+@22
+dut.demodulator.is_data_i[9:0]
+@28
+dut.demodulator.is_dv_i
+dut.demodulator.is_rfd_o
+@200
+-
+@22
+dut.demodulator.os_data_o[7:0]
+@28
+dut.demodulator.os_dv_o
+dut.demodulator.os_rfd_i
+@200
+-
+-FIFO salida
+@22
+dut.output_queue.is_data_i[7:0]
+@28
+dut.output_queue.is_dv_i
+dut.output_queue.is_rfd_o
+@200
+-
+@28
+dut.output_queue.os_dv_o
+dut.output_queue.os_dv_s
+dut.output_queue.os_rfd_i
+[pattern_trace] 1
+[pattern_trace] 0
