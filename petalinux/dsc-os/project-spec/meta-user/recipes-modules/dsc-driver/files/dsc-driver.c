@@ -47,7 +47,7 @@ static ssize_t dsc_write(struct file *filp, const char *buf, size_t len, loff_t 
 
 static long int dsc_ioctl(struct file *file, unsigned cmd, unsigned long arg);
 
-static u32 dsc_read_data_from_core();
+static u32 dsc_read_data_from_core(void);
 static void dsc_write_data_to_core(u32 value);
 static void dsc_configure_core(struct Configuration_t *configuration);
 static void dsc_restart_core(struct Restart_t *restart);
@@ -208,7 +208,7 @@ static long int dsc_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 
 	case READ_DATA:
 		rdata.value = (u16)dsc_read_data_from_core();
-		if (copy_to_user((struct result_t *)arg, &result, sizeof(struct result_t)))
+		if (copy_to_user((struct ReadData_t *)arg, &rdata, sizeof(struct ReadData_t)))
 		{
 			return -EFAULT;
 		}
@@ -225,7 +225,7 @@ static long int dsc_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 /* REGISTERS LOGIC ***********************************************************/
 static u32 control = 0x00000003; /* srst = 1, en = 1 */
 
-static u32 dsc_read_data_from_core()
+static u32 dsc_read_data_from_core(void)
 {
 	u32 data = ioread32(r6);
 
