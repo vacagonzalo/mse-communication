@@ -3897,7 +3897,7 @@ CONFIG_core-test=y
 #
 # modules 
 #
-# CONFIG_dsc-driver is not set
+CONFIG_dsc-driver=y
 
 #
 # user packages 
