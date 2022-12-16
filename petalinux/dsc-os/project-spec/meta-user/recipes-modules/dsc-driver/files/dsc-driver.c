@@ -105,12 +105,6 @@ static ssize_t dsc_write(struct file *filp, const char __user *buf, size_t len, 
 
 static int __init dsc_driver_init(void)
 {
-	struct Configuration_t defaultConfiguration = {
-		.nm1 = {.bytes = 0, .pre = 0, .sfd = 0},
-		.pll = {.kp = 0, .ki = 0},
-		.detTh = 0,
-		.sigma = 0};
-
 	if ((alloc_chrdev_region(&dev, 0, 1, "dsc")) < 0)
 	{
 		pr_err("Cannot allocate major number\n");
@@ -145,7 +139,12 @@ static int __init dsc_driver_init(void)
 	r4 = ioremap(DSC_CORE_S00_AXI_SLV_BASE_ADDR + DSC_CORE_S00_AXI_SLV_REG4_OFFSET, DSC_CORE_S00_AXI_SLV_REG_SIZE);
 	r5 = ioremap(DSC_CORE_S00_AXI_SLV_BASE_ADDR + DSC_CORE_S00_AXI_SLV_REG5_OFFSET, DSC_CORE_S00_AXI_SLV_REG_SIZE);
 	r6 = ioremap(DSC_CORE_S00_AXI_SLV_BASE_ADDR + DSC_CORE_S00_AXI_SLV_REG6_OFFSET, DSC_CORE_S00_AXI_SLV_REG_SIZE);
-	dsc_configure_core(&defaultConfiguration);
+	iowrite32(0b00000000000000110000011100000011, r2);
+	iowrite32(0x00000040, r3);
+	iowrite32(0x9000a000, r4);
+	iowrite32(0x00000000, r5);
+	wmb();
+	iowrite32(0b00000000000000000000000000000001, r0);
 	return 0;
 
 r_device:
@@ -223,7 +222,7 @@ static long int dsc_ioctl(struct file *file, unsigned cmd, unsigned long arg)
 /*****************************************************************************/
 
 /* REGISTERS LOGIC ***********************************************************/
-static u32 control = 0x00000003; /* srst = 1, en = 1 */
+static u32 control = 0x00000001; /* srst = 0, en = 1 */
 
 static u32 dsc_read_data_from_core(void)
 {
@@ -232,11 +231,13 @@ static u32 dsc_read_data_from_core(void)
 	/* ACK pulse */
 	control = control & ~(1U << 3);
 	iowrite32(control, r0);
+	wmb();
 	control = control | (1U << 3);
 	iowrite32(control, r0);
+	wmb();
 	control = control & ~(1U << 3);
 	iowrite32(control, r0);
-
+	wmb();
 	return data;
 }
 
@@ -247,10 +248,13 @@ static void dsc_write_data_to_core(u32 value)
 	/* Latch pulse and data write */
 	data = data & ~(1U << 8);
 	iowrite32(data, r1);
+	wmb();
 	data = data | (1U << 8);
 	iowrite32(data, r1);
+	wmb();
 	data = data & ~(1U << 8);
 	iowrite32(data, r1);
+	wmb();
 }
 
 static void dsc_configure_core(struct Configuration_t *configuration)
@@ -272,21 +276,24 @@ static void dsc_configure_core(struct Configuration_t *configuration)
 	iowrite32(detTh_reg, r3);
 	iowrite32(sigma_reg, r5);
 
-	control = 0x00000003;
-	iowrite32(control, r0);
 	control = 0x00000001;
 	iowrite32(control, r0);
+	wmb();
 	control = 0x00000003;
 	iowrite32(control, r0);
+	wmb();
+	control = 0x00000001;
+	iowrite32(control, r0);
+	wmb();
 }
 
 static void dsc_restart_core(struct Restart_t *restart)
 {
-	control = 0x00000003;
-	iowrite32(control, r0);
 	control = 0x00000001;
 	iowrite32(control, r0);
 	control = 0x00000003;
+	iowrite32(control, r0);
+	control = 0x00000001;
 	iowrite32(control, r0);
 }
 /*****************************************************************************/

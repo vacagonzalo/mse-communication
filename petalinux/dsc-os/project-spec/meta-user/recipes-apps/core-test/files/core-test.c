@@ -31,8 +31,8 @@ int main(int argc, char **argv)
     {
         ioctl(fd, WRITE_DATA, &wdata);
         ioctl(fd, READ_DATA, &rdata);
-        ++wdata.value;
-        printf("%d", rdata.value);
+        wdata.value = (wdata.value + 1) & 0x000000ff;
+        printf("w%d r%d\n", wdata.value, rdata.value);
     }
 
     close(fd);
