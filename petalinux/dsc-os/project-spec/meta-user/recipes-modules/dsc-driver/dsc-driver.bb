@@ -9,6 +9,7 @@ INHIBIT_PACKAGE_STRIP = "1"
 
 SRC_URI = "file://Makefile \
            file://dsc-driver.c \
+           file://dsc-driver.h \
 	   file://COPYING \
           "
 
