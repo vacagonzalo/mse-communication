@@ -66,7 +66,9 @@ int main( void )
 
 
 	BaseType_t res;
-	res = xTaskCreate(DscTestFreeRtosTask, (const char *)"DSC_TEST", 1024 * 4, NULL,  2, NULL);
+	res = xTaskCreate(DscWriteFreeRtosTask, (const char *)"DSC_WRITE", 1024 * 4, NULL,  2, NULL);
+	configASSERT( res );
+	res = xTaskCreate(DscReadFreeRtosTask, (const char *)"DSC_READ", 1024 * 4, NULL,  2, NULL);
 	configASSERT( res );
 	xil_printf("Starting scheduler\n\r");
 	vTaskStartScheduler();
@@ -97,6 +99,7 @@ void DscWriteFreeRtosTask(void *notUsed)
 		SET_LOW(reg[REGISTER_DATA_IN], BIT_WRITE_LATCH_I);
 		DSC_CORE_mWriteReg(BASE_ADDRESS, DSC_CORE_S00_AXI_SLV_REG1_OFFSET, reg[REGISTER_DATA_IN]);
 		vTaskDelay(1);
+		xil_printf("counter: %d\n\r", d);
 	}
 }
 
@@ -111,6 +114,18 @@ void DscReadFreeRtosTask(void *notUsed)
 
 	for(uint32_t d = 0; ; ++d)
 	{
+		SET_LOW(reg[REGISTER_READ_CONTROL], BIT_READ_LATCH_I);
+		DSC_CORE_mWriteReg(BASE_ADDRESS, DSC_CORE_S00_AXI_SLV_REG0_OFFSET, reg[REGISTER_READ_CONTROL]);
+		vTaskDelay(1);
+
+		SET_HIGH(reg[REGISTER_READ_CONTROL], BIT_READ_LATCH_I);
+		DSC_CORE_mWriteReg(BASE_ADDRESS, DSC_CORE_S00_AXI_SLV_REG0_OFFSET, reg[REGISTER_READ_CONTROL]);
+		vTaskDelay(1);
+
+		SET_LOW(reg[REGISTER_READ_CONTROL], BIT_READ_LATCH_I);
+		DSC_CORE_mWriteReg(BASE_ADDRESS, DSC_CORE_S00_AXI_SLV_REG0_OFFSET, reg[REGISTER_READ_CONTROL]);
+		vTaskDelay(1);
+
 		reg[REGISTER_DATA_OUT] = DSC_CORE_mReadReg(BASE_ADDRESS, DSC_CORE_S00_AXI_SLV_REG6_OFFSET);
 		vTaskDelay(1);
 
