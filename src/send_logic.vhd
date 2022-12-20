@@ -40,7 +40,6 @@ BEGIN
             IF srst_i = '1' THEN
                 pipe_data_counter_s <= (OTHERS => '0');
                 modem_send_s <= '0';
-                -- modem_tx_rdy_d10_s <= (others => '0');
             ELSE
                 IF uart_os_dv_i = '1' AND
                     uart_os_rfd_i = '1' AND
